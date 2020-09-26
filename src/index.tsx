@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import {state, subscribe} from "./Redux/State"
+import {store} from "./Redux/State"
 
 
 import {RootStateType} from "./Redux/State";
@@ -12,14 +12,14 @@ import App from "./App";
 export const renderTree = () => {
     ReactDOM.render(
         <React.StrictMode>
-            <App appState={state}/>
+            <App dispatch={store.dispatch.bind(store)} store={store} />
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
 
 renderTree()
-subscribe(renderTree)
+store.subscribe(renderTree)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

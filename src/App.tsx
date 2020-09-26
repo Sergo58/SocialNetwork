@@ -10,22 +10,24 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
 
-import {RootStateType, state, updateNewPostText} from "./Redux/State";
-import {addPost} from "./Redux/State";
+import {ActionTypes,  RootStateType, store, StoreType,} from "./Redux/State";
 
-type AppPropsType={
-    appState:RootStateType
+
+type PropsType={
+    store:StoreType
+    dispatch:(action:ActionTypes)=>void
 }
 
-function App(props:AppPropsType) {
+const App:React.FC<PropsType> = (props)=> {
+    const state=props.store.getState()
     return (
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <Header/>
-                <Navbar state={props.appState.SideBar}/>
+                <Navbar state={props.store._state.SideBar}/>
                 <div className="app-wrapper-content">
-                    <Route exact path={"/dialogs"}  render={()=><Dialogs state={props.appState.DialogsPage}/>}/>
-                    <Route path={"/profile"} render={()=><Profile  state={props.appState.ProfilePage } addPost={addPost} newPostText={state.ProfilePage.newPostText} updateNewPostText={updateNewPostText}/>} />
+                    <Route exact path={"/dialogs"}  render={()=><Dialogs state={props.store._state.DialogsPage}/>}/>
+                    <Route path={"/profile"} render={()=><Profile  state={props.store._state.ProfilePage } dispatch={props.dispatch} newPostText={state.ProfilePage.newPostText} />} />
                     <Route path={"/news"} render={()=><News/>} />
                     <Route path={"/settings"} render={()=><Settings/>} />
                     <Route path={"/music"} render={()=><Music/>}/>
