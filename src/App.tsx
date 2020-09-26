@@ -10,7 +10,7 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
 
-import {ActionTypes,  RootStateType, store, StoreType,} from "./Redux/State";
+import {ActionTypes, StoreType,} from "./Redux/State";
 
 
 type PropsType={
@@ -24,9 +24,9 @@ const App:React.FC<PropsType> = (props)=> {
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <Header/>
-                <Navbar state={props.store._state.SideBar}/>
+                <Navbar state={state.SideBar}/>
                 <div className="app-wrapper-content">
-                    <Route exact path={"/dialogs"}  render={()=><Dialogs state={props.store._state.DialogsPage}/>}/>
+                    <Route exact path={"/dialogs"}  render={()=><Dialogs dispatch={props.dispatch} state={state.DialogsPage}/>}/>
                     <Route path={"/profile"} render={()=><Profile  state={props.store._state.ProfilePage } dispatch={props.dispatch} newPostText={state.ProfilePage.newPostText} />} />
                     <Route path={"/news"} render={()=><News/>} />
                     <Route path={"/settings"} render={()=><Settings/>} />

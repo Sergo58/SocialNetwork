@@ -19,6 +19,7 @@ export type PostDataType = {
  export type MessageDataType = {
     id: number
     message: string
+
 }
 
 export type RootStateType={
@@ -37,7 +38,7 @@ export type SideBarType={
 export type DialogsPageType={
     messages:Array<MessageDataType>
     dialogs:Array<DialogsDataType>
-
+    newMessageBody:string
 }
 export type NamesType={
     id:number
@@ -55,11 +56,13 @@ export type StoreType={
     _renderTree:()=>void
     subscribe:(callback:()=>void)=>void
     getState:()=>RootStateType
-    dispatch:(action:AddPostActionType|ChangeNewTextActionType)=>void
+    dispatch:(action:ActionTypes)=>void
 }
  type AddPostActionType=ReturnType<typeof addPostAC>
  type ChangeNewTextActionType=ReturnType<typeof changeNewTextAC>
-export  type ActionTypes=AddPostActionType|ChangeNewTextActionType
+type ChangeNewMessageActionType=ReturnType<typeof changeNewMessageAC>
+type SendMessageActionType=ReturnType<typeof sendMessageAC>
+export  type ActionTypes=AddPostActionType|ChangeNewTextActionType|ChangeNewMessageActionType|SendMessageActionType
 
 export const addPostAC=(postMessage:string)=>{
     return {
@@ -71,6 +74,18 @@ export const changeNewTextAC=(newText:string)=>{
     return {
         type:"CHANGE NEW TEXT",
         newText:newText
+    } as const
+}
+export const changeNewMessageAC=(newMessageBody:string)=>{
+    return {
+        type:"CHANGE NEW MESSAGEBODY",
+        newMessageBody:newMessageBody
+    } as const
+}
+export const sendMessageAC=()=>{
+    return {
+        type:"SEND MESSAGE",
+
     } as const
 }
 export const store:StoreType={
@@ -96,6 +111,7 @@ export const store:StoreType={
                 {id: 6, name: "Santino", avatar:"https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"}
 
             ],
+
             messages:[
                 {id: 1, message: "hi"},
                 {id: 2, message: "How are you?"},
@@ -105,7 +121,8 @@ export const store:StoreType={
                 {id: 6, message: "Sergo, you are cool!"},
 
 
-            ]
+            ],
+            newMessageBody:""
 
 
 
@@ -127,7 +144,7 @@ export const store:StoreType={
     _renderTree(){
         console.log("state was changed")
     },
-    dispatch(action){
+    dispatch(action:ActionTypes){
         if(action.type==="ADD-POST"){
             const newPost:PostDataType={
                 id:new Date().getTime(),
@@ -143,6 +160,17 @@ export const store:StoreType={
 
             this._renderTree()
         }
+        else if(action.type==="CHANGE NEW MESSAGEBODY"){
+            this._state.DialogsPage.newMessageBody=action.newMessageBody;
+            this._renderTree()
+        }
+        else if(action.type==="SEND MESSAGE"){
+            let body=this._state.DialogsPage.newMessageBody
+            this._state.DialogsPage.newMessageBody=""
+            this._state.DialogsPage.messages.push({id:new Date().getTime(),message:body})
+            this._renderTree()
+        }
+
     },
 
     subscribe(callback){

@@ -4,7 +4,7 @@ import * as serviceWorker from './serviceWorker';
 import {store} from "./Redux/State"
 
 
-import {RootStateType} from "./Redux/State";
+
 import ReactDOM from "react-dom";
 
 import App from "./App";
