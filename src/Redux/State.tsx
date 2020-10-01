@@ -1,4 +1,7 @@
 import {link} from "fs";
+import {addPostAC, changeNewTextAC, profileReducer} from "./ProfileReducer";
+import {changeNewMessageAC, dialogsReducer, sendMessageAC} from "./DialogsReducer";
+import {sideBarReducer} from "./SideBarReducer";
 
 let renderTree=()=>{
     console.log("state was changed")
@@ -64,30 +67,8 @@ type ChangeNewMessageActionType=ReturnType<typeof changeNewMessageAC>
 type SendMessageActionType=ReturnType<typeof sendMessageAC>
 export  type ActionTypes=AddPostActionType|ChangeNewTextActionType|ChangeNewMessageActionType|SendMessageActionType
 
-export const addPostAC=(postMessage:string)=>{
-    return {
-        type:"ADD-POST",
-        postMessage:postMessage
-    } as const
-}
-export const changeNewTextAC=(newText:string)=>{
-    return {
-        type:"CHANGE NEW TEXT",
-        newText:newText
-    } as const
-}
-export const changeNewMessageAC=(newMessageBody:string)=>{
-    return {
-        type:"CHANGE NEW MESSAGEBODY",
-        newMessageBody:newMessageBody
-    } as const
-}
-export const sendMessageAC=()=>{
-    return {
-        type:"SEND MESSAGE",
 
-    } as const
-}
+
 export const store:StoreType={
     _state:{
         ProfilePage:{
@@ -145,32 +126,10 @@ export const store:StoreType={
         console.log("state was changed")
     },
     dispatch(action:ActionTypes){
-        if(action.type==="ADD-POST"){
-            const newPost:PostDataType={
-                id:new Date().getTime(),
-                message:action.postMessage,
-                likesCount:0
-            };
-            this._state.ProfilePage.postData.push(newPost)
-            this._state.ProfilePage.newPostText=""
-            this._renderTree()
-        }
-        else if(action.type==="CHANGE NEW TEXT"){
-            this._state.ProfilePage.newPostText=action.newText;
-
-            this._renderTree()
-        }
-        else if(action.type==="CHANGE NEW MESSAGEBODY"){
-            this._state.DialogsPage.newMessageBody=action.newMessageBody;
-            this._renderTree()
-        }
-        else if(action.type==="SEND MESSAGE"){
-            let body=this._state.DialogsPage.newMessageBody
-            this._state.DialogsPage.newMessageBody=""
-            this._state.DialogsPage.messages.push({id:new Date().getTime(),message:body})
-            this._renderTree()
-        }
-
+        this._state.ProfilePage=profileReducer(this._state.ProfilePage,action)
+        this._state.DialogsPage=dialogsReducer(this._state.DialogsPage,action)
+        this._state.SideBar=sideBarReducer(this._state.SideBar,action)
+        this._renderTree()
     },
 
     subscribe(callback){
