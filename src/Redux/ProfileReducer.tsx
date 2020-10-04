@@ -1,8 +1,15 @@
-import {ActionTypes, PostDataType, ProfilePageType, RootStateType, store} from "./State";
+import {ActionTypes, PostDataType, ProfilePageType, RootStateType, store} from "./Store";
 
+let initial={ newPostText:"",
+    postData:  [
+        {id: 1, message: "Hi, how are you?", likesCount: 12},
+        {id: 2, message: "It's my first post", likesCount: 7},
+        {id: 3, message: "EEEEEHHHHHAAAAA", likesCount: 4},
+        {id: 4, message: "Game Over", likesCount: 77},
+        {id: 5, message: "I'd die for you", likesCount: 756},
+    ]}
 
-
-export const profileReducer=(state:ProfilePageType,action:ActionTypes)=>{
+export const profileReducer=(state:ProfilePageType=initial,action:ActionTypes)=>{
        switch (action.type) {
            case "ADD-POST":
                const newPost:PostDataType={

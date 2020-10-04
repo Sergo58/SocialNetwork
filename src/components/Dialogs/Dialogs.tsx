@@ -10,7 +10,7 @@ import {
     DialogsPageType,
     MessageDataType,
 
-} from "../../Redux/State";
+} from "../../Redux/Store";
 import {changeNewMessageAC, sendMessageAC} from "../../Redux/DialogsReducer";
 
 

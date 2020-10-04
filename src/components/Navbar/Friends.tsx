@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Friends.module.css"
-import {DialogsDataType, NamesType} from "../../Redux/State";
+import {DialogsDataType, NamesType} from "../../Redux/Store";
 
 type FriendsPropsType = {
     friendsName:Array<NamesType>
