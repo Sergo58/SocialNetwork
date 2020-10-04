@@ -8,8 +8,10 @@ import {addPostAC, changeNewTextAC} from "../../../Redux/ProfileReducer";
 
 type MyPostsPropsType = {
     post: Array<PostDataType>
-    dispatch:(action:ActionTypes)=>void
+
     newPostText: string
+    addPost:()=>void
+    updateNewPostText:(e: ChangeEvent<HTMLTextAreaElement>)=>void
 }
 
 export function MyPosts(props: MyPostsPropsType) {
@@ -19,12 +21,12 @@ export function MyPosts(props: MyPostsPropsType) {
 
 
     let addPost = function () {
-        props.dispatch(addPostAC(props.newPostText))
+        props.addPost()
 
     }
 
     let newUpdateNewPostText = function (e: ChangeEvent<HTMLTextAreaElement>) {
-        props.dispatch(changeNewTextAC(e.currentTarget.value))
+        props.updateNewPostText(e)
 
 
     }

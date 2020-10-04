@@ -25,7 +25,10 @@ type MessagePropsType = {
 
 type DialogsPropsType={
     state:DialogsPageType
-    dispatch:(action:ActionTypes)=>void
+
+    onSendMessageClick:(e:ChangeEvent<HTMLTextAreaElement>)=>void
+    addMessage:()=>void
+
 }
 
 
@@ -38,13 +41,14 @@ export function Dialogs(props: DialogsPropsType) {
 
     let newMessageElement=React.createRef<HTMLTextAreaElement>()
 let newMessageBody=props.state.newMessageBody
+
     let addMessage=function () {
-props.dispatch(sendMessageAC())
+props.addMessage()
 
     }
 let onSendMessageClick=function (e:ChangeEvent<HTMLTextAreaElement>) {
-let body=e.currentTarget.value;
-    props.dispatch(changeNewMessageAC(body))
+    let body=e.currentTarget.value;
+    props.onSendMessageClick(e)
 
     }
 

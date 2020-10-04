@@ -11,7 +11,8 @@ import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
 
 import {ActionTypes,} from "./Redux/Store";
-import {StoreType} from "./Redux/reduxStore";
+import {store, StoreType} from "./Redux/reduxStore";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
 type PropsType={
@@ -27,8 +28,8 @@ const App:React.FC<PropsType> = (props)=> {
                 <Header/>
                 <Navbar state={state.SideBar}/>
                 <div className="app-wrapper-content">
-                    <Route exact path={"/dialogs"}  render={()=><Dialogs dispatch={props.dispatch} state={state.DialogsPage}/>}/>
-                    <Route path={"/profile"} render={()=><Profile  state={state.ProfilePage} dispatch={props.dispatch} newPostText={state.ProfilePage.newPostText} />} />
+                    <Route exact path={"/dialogs"}  render={()=><DialogsContainer store={store} state={state.DialogsPage}/>}/>
+                    <Route path={"/profile"} render={()=><Profile store={store}  state={state.ProfilePage} dispatch={props.dispatch} newPostText={state.ProfilePage.newPostText} />} />
                     <Route path={"/news"} render={()=><News/>} />
                     <Route path={"/settings"} render={()=><Settings/>} />
                     <Route path={"/music"} render={()=><Music/>}/>

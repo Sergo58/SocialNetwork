@@ -69,6 +69,7 @@ export  type ActionTypes=AddPostActionType|ChangeNewTextActionType|ChangeNewMess
 
 
 
+/*
 export const store:StoreType={
     _state:{
         ProfilePage:{
@@ -138,4 +139,4 @@ export const store:StoreType={
     getState(){
         return this._state}
 
-}
+}*/

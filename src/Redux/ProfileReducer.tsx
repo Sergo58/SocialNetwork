@@ -1,4 +1,4 @@
-import {ActionTypes, PostDataType, ProfilePageType, RootStateType, store} from "./Store";
+import {ActionTypes, PostDataType, ProfilePageType, RootStateType,} from "./Store";
 
 let initial={ newPostText:"",
     postData:  [
