@@ -16,20 +16,19 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
 type PropsType={
-    store:StoreType
-    dispatch:(action:ActionTypes)=>void
+
 }
 
 const App:React.FC<PropsType> = (props)=> {
-    const state=props.store.getState()
+    const state=store.getState()
     return (
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <Header/>
                 <Navbar state={state.SideBar}/>
                 <div className="app-wrapper-content">
-                    <Route exact path={"/dialogs"}  render={()=><DialogsContainer store={store} state={state.DialogsPage}/>}/>
-                    <Route path={"/profile"} render={()=><Profile store={store}  state={state.ProfilePage} dispatch={props.dispatch} newPostText={state.ProfilePage.newPostText} />} />
+                    <Route exact path={"/dialogs"}  render={()=><DialogsContainer/>}/>
+                    <Route path={"/profile"} render={()=><Profile  />} />
                     <Route path={"/news"} render={()=><News/>} />
                     <Route path={"/settings"} render={()=><Settings/>} />
                     <Route path={"/music"} render={()=><Music/>}/>

@@ -14,7 +14,8 @@ import {
 import {changeNewMessageAC, sendMessageAC} from "../../Redux/DialogsReducer";
 import {Dialogs} from "./Dialogs";
 import {Store} from "redux";
-import {StoreType} from "../../Redux/reduxStore";
+import {store, StoreType} from "../../Redux/reduxStore";
+import StoreContext from "../../storeContext";
 
 
 
@@ -29,29 +30,32 @@ type MessagePropsType = {
 }
 
 type DialogsContainerPropsType={
-    state:DialogsPageType
-    store:StoreType
+
 }
 
 
 
 
 export function DialogsContainer(props: DialogsContainerPropsType) {
-
-let newMessageBody=props.state.newMessageBody
+let state=store.getState().DialogsPage
+    let newMessageBody=store.getState().DialogsPage.newMessageBody
     let addMessage=function () {
-props.store.dispatch(sendMessageAC())
+        store.dispatch(sendMessageAC())
 
     }
-let onSendMessageClick=function (e:ChangeEvent<HTMLTextAreaElement>) {
-    let body=e.currentTarget.value;
-    props.store.dispatch(changeNewMessageAC(body))
+    let onSendMessageClick=function (e:ChangeEvent<HTMLTextAreaElement>) {
+        let body=e.currentTarget.value;
+        store.dispatch(changeNewMessageAC(body))
 
     }
 
-    return (
-       <Dialogs  state={props.state}  addMessage={addMessage} onSendMessageClick={onSendMessageClick} />
-
+    return  (
+        <StoreContext.Consumer>
+            {(store)=>{return <Dialogs state={state} addMessage={addMessage}
+                      onSendMessageClick={onSendMessageClick}/>}}
+    </StoreContext.Consumer>
     )
+
+
 
 }
