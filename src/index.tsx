@@ -8,9 +8,10 @@ import {store} from "./Redux/reduxStore"
 import ReactDOM from "react-dom";
 
 import App from "./App";
-import StoreContext, {Provider} from "./storeContext";
+import {Provider} from "react-redux";
 
-export const renderTree = () => {
+
+
     ReactDOM.render(
         <React.StrictMode>
             <Provider store={store}>
@@ -19,10 +20,10 @@ export const renderTree = () => {
         </React.StrictMode>,
         document.getElementById('root')
     );
-}
 
-renderTree()
-store.subscribe(renderTree)
+
+
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

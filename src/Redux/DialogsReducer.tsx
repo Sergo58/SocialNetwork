@@ -1,16 +1,41 @@
-import { ActionTypes,DialogsPageType, RootStateType} from "./Store";
+import {ActionTypes, DialogsPageType, RootStateType} from "./Store";
 
-let initial={ dialogs:  [
-        {id: 1, name: "Sergo", avatar:"https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"},
-        {id: 2, name: "Pedro", avatar:"https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"},
-        {id: 3, name: "Vito", avatar:"https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"},
-        {id: 4, name: "Mikele", avatar:"https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"},
-        {id: 5, name: "Fredo", avatar:"https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"},
-        {id: 6, name: "Santino", avatar:"https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"}
+let initial = {
+    dialogs: [
+        {
+            id: 1,
+            name: "Sergo",
+            avatar: "https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"
+        },
+        {
+            id: 2,
+            name: "Pedro",
+            avatar: "https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"
+        },
+        {
+            id: 3,
+            name: "Vito",
+            avatar: "https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"
+        },
+        {
+            id: 4,
+            name: "Mikele",
+            avatar: "https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"
+        },
+        {
+            id: 5,
+            name: "Fredo",
+            avatar: "https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"
+        },
+        {
+            id: 6,
+            name: "Santino",
+            avatar: "https://avatars.mds.yandex.net/get-pdb/1649566/54263c63-814a-40c4-bec0-14fd28ff1733/s1200?webp=false"
+        }
 
     ],
 
-    messages:[
+    messages: [
         {id: 1, message: "hi"},
         {id: 2, message: "How are you?"},
         {id: 3, message: "YAAAAAAAAAAAAAAA!!"},
@@ -20,39 +45,47 @@ let initial={ dialogs:  [
 
 
     ],
-    newMessageBody:""
+    newMessageBody: ""
 
 }
 
 
-export const dialogsReducer=(state:DialogsPageType=initial,action:ActionTypes)=>{
+export const dialogsReducer = (state: DialogsPageType = initial, action: ActionTypes) => {
+    let stateCopy
 
-    switch (action.type){
+    switch (action.type) {
         case "CHANGE NEW MESSAGEBODY":
-            state.newMessageBody=action.newMessageBody;
-            return state
+
+
+            return  stateCopy = {
+                ...state,
+                newMessageBody: action.newMessageBody
+            }
+
         case "SEND MESSAGE":
-            let body=state.newMessageBody
-            state.newMessageBody=""
-            state.messages.push({id:new Date().getTime(),message:body})
+            let body = state.newMessageBody
+            return stateCopy = {
+                ...state,
+                newMessageBody: "",
+                messages: [...state.messages, {id: new Date().getTime(), message: body}]
+
+            }
+        default:
             return state
-        default: return state
     }
 
 
-
-
 }
 
-export const changeNewMessageAC=(newMessageBody:string)=>{
+export const changeNewMessageAC = (newMessageBody: string) => {
     return {
-        type:"CHANGE NEW MESSAGEBODY",
-        newMessageBody:newMessageBody
+        type: "CHANGE NEW MESSAGEBODY",
+        newMessageBody: newMessageBody
     } as const
 }
-export const sendMessageAC=()=>{
+export const sendMessageAC = () => {
     return {
-        type:"SEND MESSAGE",
+        type: "SEND MESSAGE",
 
     } as const
 }

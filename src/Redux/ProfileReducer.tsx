@@ -11,18 +11,27 @@ let initial={ newPostText:"",
 
 export const profileReducer=(state:ProfilePageType=initial,action:ActionTypes)=>{
        switch (action.type) {
-           case "ADD-POST":
-               const newPost:PostDataType={
-                   id:new Date().getTime(),
-                   message:action.postMessage,
-                   likesCount:0
-               };
-               state.postData.push(newPost)
-               state.newPostText="";
-               return state
-           case "CHANGE NEW TEXT":
-               state.newPostText=action.newText;
-               return state
+           case "ADD-POST":{ const newPost:PostDataType={
+               id:new Date().getTime(),
+               message:state.newPostText,
+               likesCount:0
+           };
+               return {
+                   ...state,
+                   postData:[...state.postData,newPost],
+                   newPostText:""
+               }
+
+               }
+
+           case "CHANGE NEW TEXT":{
+
+               return {
+                   ...state,
+                   newPostText:action.newText
+               }
+           }
+
            default:
                return state
        }
@@ -32,10 +41,9 @@ export const profileReducer=(state:ProfilePageType=initial,action:ActionTypes)=>
 
     }
 
-export const addPostAC=(postMessage:string)=>{
+export const addPostAC=()=>{
     return {
-        type:"ADD-POST",
-        postMessage:postMessage
+        type:"ADD-POST"
     } as const
 }
 export const changeNewTextAC=(newText:string)=>{

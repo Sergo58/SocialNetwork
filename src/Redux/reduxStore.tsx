@@ -9,6 +9,7 @@ let reducers=combineReducers({
         DialogsPage:dialogsReducer,
         SideBar:sideBarReducer}
     )
-export type StoreType=typeof store
+type RootReducers=typeof reducers
+export type StoreType=ReturnType<RootReducers>
 export let store=createStore(reducers);
 

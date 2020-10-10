@@ -22,6 +22,7 @@ type PropsType={
 const App:React.FC<PropsType> = (props)=> {
     const state=store.getState()
     return (
+        // eslint-disable-next-line react/jsx-no-undef
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <Header/>
