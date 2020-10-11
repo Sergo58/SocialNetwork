@@ -25,7 +25,6 @@ type MessagePropsType = {
 
 type DialogsPropsType={
     state:DialogsPageType
-
     onSendMessageClick:(e:string)=>void
     addMessage:()=>void
 

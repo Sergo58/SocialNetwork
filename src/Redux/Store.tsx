@@ -2,6 +2,7 @@ import {link} from "fs";
 import {addPostAC, changeNewTextAC, profileReducer} from "./ProfileReducer";
 import {changeNewMessageAC, dialogsReducer, sendMessageAC} from "./DialogsReducer";
 import {sideBarReducer} from "./SideBarReducer";
+import {followAC, setUsersAC, unFollowAC} from "./users-reducer";
 
 let renderTree=()=>{
     console.log("state was changed")
@@ -61,11 +62,16 @@ export type StoreType={
     getState:()=>RootStateType
     dispatch:(action:ActionTypes)=>void
 }
- type AddPostActionType=ReturnType<typeof addPostAC>
- type ChangeNewTextActionType=ReturnType<typeof changeNewTextAC>
+type AddPostActionType=ReturnType<typeof addPostAC>
+type ChangeNewTextActionType=ReturnType<typeof changeNewTextAC>
 type ChangeNewMessageActionType=ReturnType<typeof changeNewMessageAC>
 type SendMessageActionType=ReturnType<typeof sendMessageAC>
-export  type ActionTypes=AddPostActionType|ChangeNewTextActionType|ChangeNewMessageActionType|SendMessageActionType
+type FollowActionType=ReturnType<typeof followAC>
+type UnFollowActionType=ReturnType<typeof unFollowAC>
+type setUsersActionType=ReturnType<typeof setUsersAC>
+export  type ActionTypes=AddPostActionType|ChangeNewTextActionType
+    |ChangeNewMessageActionType|SendMessageActionType|
+    FollowActionType|UnFollowActionType|setUsersActionType
 
 
 

@@ -13,6 +13,8 @@ import {Music} from "./components/Music/Music";
 import {ActionTypes,} from "./Redux/Store";
 import {store, StoreType} from "./Redux/reduxStore";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {Users} from "./components/Users/Users";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 
 type PropsType={
@@ -22,14 +24,15 @@ type PropsType={
 const App:React.FC<PropsType> = (props)=> {
     const state=store.getState()
     return (
-        // eslint-disable-next-line react/jsx-no-undef
+
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <Header/>
                 <Navbar state={state.SideBar}/>
                 <div className="app-wrapper-content">
-                    <Route exact path={"/dialogs"}  render={()=><DialogsContainer/>}/>
-                    <Route path={"/profile"} render={()=><Profile  />} />
+                    <Route exact path={"/dialogs"}  render={()=><DialogsContainer  />}/>
+                    <Route path={"/profile"} render={()=><Profile   />} />
+                    <Route path={"/users"} render={()=><UsersContainer  />}/>
                     <Route path={"/news"} render={()=><News/>} />
                     <Route path={"/settings"} render={()=><Settings/>} />
                     <Route path={"/music"} render={()=><Music/>}/>

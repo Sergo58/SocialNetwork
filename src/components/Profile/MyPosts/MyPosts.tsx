@@ -11,6 +11,7 @@ type MyPostsPropsType = {
     newPostText: string
     addPost:()=>void
     updateNewPostText:(text:string)=>void
+
 }
 
 export function MyPosts(props: MyPostsPropsType) {
