@@ -1,8 +1,15 @@
 import {link} from "fs";
-import {addPostAC, changeNewTextAC, profileReducer} from "./ProfileReducer";
+import {addPostAC, changeNewTextAC, profileReducer, setUserProfileAC} from "./ProfileReducer";
 import {changeNewMessageAC, dialogsReducer, sendMessageAC} from "./DialogsReducer";
 import {sideBarReducer} from "./SideBarReducer";
-import {followAC, setUsersAC, unFollowAC} from "./users-reducer";
+import {
+    follow,
+    setCurrentPage,
+
+    setTotalUsersCount,
+    setUsers, toggleIsFetching,
+    unFollow
+} from "./users-reducer";
 
 let renderTree=()=>{
     console.log("state was changed")
@@ -66,12 +73,16 @@ type AddPostActionType=ReturnType<typeof addPostAC>
 type ChangeNewTextActionType=ReturnType<typeof changeNewTextAC>
 type ChangeNewMessageActionType=ReturnType<typeof changeNewMessageAC>
 type SendMessageActionType=ReturnType<typeof sendMessageAC>
-type FollowActionType=ReturnType<typeof followAC>
-type UnFollowActionType=ReturnType<typeof unFollowAC>
-type setUsersActionType=ReturnType<typeof setUsersAC>
+type FollowActionType=ReturnType<typeof follow>
+type UnFollowActionType=ReturnType<typeof unFollow>
+type setUsersActionType=ReturnType<typeof setUsers>
+type setCurrentPageActionType=ReturnType<typeof setCurrentPage>
+type setTotalUsersCountActionType=ReturnType<typeof setTotalUsersCount>
+type setIsFetchingActionType=ReturnType<typeof toggleIsFetching>
+type setUserProfileActionType=ReturnType<typeof setUserProfileAC>
 export  type ActionTypes=AddPostActionType|ChangeNewTextActionType
     |ChangeNewMessageActionType|SendMessageActionType|
-    FollowActionType|UnFollowActionType|setUsersActionType
+    FollowActionType|UnFollowActionType|setUsersActionType|setCurrentPageActionType|setTotalUsersCountActionType|setIsFetchingActionType|setUserProfileActionType
 
 
 
