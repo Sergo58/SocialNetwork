@@ -3,12 +3,12 @@ import {addPostAC, changeNewTextAC, profileReducer, setUserProfileAC} from "./Pr
 import {changeNewMessageAC, dialogsReducer, sendMessageAC} from "./DialogsReducer";
 import {sideBarReducer} from "./SideBarReducer";
 import {
-    follow,
+    follow, followSuccess,
     setCurrentPage,
 
     setTotalUsersCount,
     setUsers, toggleIsFetching, toggleIsFollowingProgress,
-    unFollow
+    unFollow, unFollowSuccess
 } from "./users-reducer";
 
 let renderTree=()=>{
@@ -73,8 +73,8 @@ type AddPostActionType=ReturnType<typeof addPostAC>
 type ChangeNewTextActionType=ReturnType<typeof changeNewTextAC>
 type ChangeNewMessageActionType=ReturnType<typeof changeNewMessageAC>
 type SendMessageActionType=ReturnType<typeof sendMessageAC>
-type FollowActionType=ReturnType<typeof follow>
-type UnFollowActionType=ReturnType<typeof unFollow>
+type FollowActionType=ReturnType<typeof followSuccess>
+type UnFollowActionType=ReturnType<typeof unFollowSuccess>
 type setUsersActionType=ReturnType<typeof setUsers>
 type setCurrentPageActionType=ReturnType<typeof setCurrentPage>
 type setTotalUsersCountActionType=ReturnType<typeof setTotalUsersCount>

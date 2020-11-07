@@ -4,10 +4,9 @@ import {StoreType} from "../../Redux/reduxStore";
 import {ActionTypes} from "../../Redux/Store";
 import preloader from "../../ets/images/Infinity-1.7s-200px (2).svg"
 import {
-    follow,
+    follow, getUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    setUsers, toggleIsFetching, toggleIsFollowingProgress,
+    toggleIsFollowingProgress,
     unFollow,
 
     UsersType
@@ -21,41 +20,33 @@ export type UsersPropsType = {
     users: Array<UsersType>
     follow: (userId: number) => void,
     unFollow: (userId: number) => void,
-    setUsers: (users: Array<UsersType>) => void
+
     setCurrentPage: (currentPage: number) => void
     totalUsersCount: number
     currentPage: number
     pageSize: number
-    setTotalUsersCount: (totalUsersCount: number) => void
+
     isFetching:boolean
-    toggleIsFetching:(isFetching:boolean)=>void
+
     toggleIsFollowingProgress:(isFetching:boolean,userId:number)=>void
     followingInProgress:Array<number>
+    getUsers:(currentPage:number,pageSize:number)=>void
 }
 
 
 export class UsersContain extends React.Component<UsersPropsType> {
     componentDidMount() {
-        this.props.toggleIsFetching(true)
+        this.props.getUsers(this.props.currentPage,this.props.pageSize);
 
 
-        usersAPI.getUsers(this.props.currentPage,this.props.pageSize).
-        then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
-            this.props.setTotalUsersCount(data.totalCount)
-        })
+
     }
 
-    onPageChanged = (currentPage: number) => {
-        this.props.setCurrentPage(currentPage);
-        this.props.toggleIsFetching(true)
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber);
+     this.props.getUsers(pageNumber,this.props.pageSize)
+        }
 
-       usersAPI.getUsers(currentPage,this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
-        })
-    }
 
     render() {
 
@@ -69,7 +60,7 @@ export class UsersContain extends React.Component<UsersPropsType> {
                    onPageChanged={this.onPageChanged}
                    unFollow={this.props.unFollow}
                    follow={this.props.follow}
-                   toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
+
                    followingInProgress={this.props.followingInProgress}
 
             />
@@ -95,9 +86,7 @@ let mapStateToProps=(state:StoreType)=>{
 export const UsersContainer=connect(mapStateToProps, {
     follow,
     unFollow,
-    setUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
-    toggleIsFollowingProgress
+    toggleIsFollowingProgress,
+    getUsers
 })(UsersContain)

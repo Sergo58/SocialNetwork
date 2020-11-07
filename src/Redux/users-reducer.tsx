@@ -1,4 +1,6 @@
 import {ActionTypes, PostDataType, ProfilePageType, RootStateType,} from "./Store";
+import {Dispatch} from "react";
+import {usersAPI} from "../api/api";
 export type UsersPageType= {
     users:Array<UsersType>
     pageSize:number,
@@ -82,13 +84,13 @@ export const usersReducer=(state:UsersPageType=initial,action:ActionTypes)=>{
 
 }
 
-export const follow=(userId:number)=>{
+export const followSuccess=(userId:number)=>{
     return {
         type:"FOLLOW",
         userId
     } as const
 }
-export const unFollow=(userId:number)=>{
+export const unFollowSuccess=(userId:number)=>{
     return {
         type:"UNFOLLOW",
         userId
@@ -130,3 +132,46 @@ export const toggleIsFollowingProgress=(isFetching:boolean,userId:number)=>{
 
 
 }
+
+export const getUsers=(currentPage:number,pageSize:number)=>{
+    return (dispatch:Dispatch<ActionTypes>)=>{
+        dispatch(toggleIsFetching(true))
+
+
+        usersAPI.getUsers(currentPage,pageSize).
+        then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
+    }
+}
+
+export const follow=(userId:number) => {
+    return (dispatch:Dispatch<ActionTypes>)=>{
+        dispatch(toggleIsFollowingProgress(true,userId));
+        usersAPI.follow(userId)
+
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(followSuccess(userId))
+                }
+                dispatch(toggleIsFollowingProgress(false,userId))
+            });
+    }
+}
+export const unFollow=(userId:number) => {
+    return (dispatch:Dispatch<ActionTypes>)=>{
+        dispatch(toggleIsFollowingProgress(true,userId));
+        usersAPI.unFollow(userId)
+
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unFollowSuccess(userId))
+                }
+                dispatch(toggleIsFollowingProgress(false,userId))
+            });
+    }
+}
+
+
