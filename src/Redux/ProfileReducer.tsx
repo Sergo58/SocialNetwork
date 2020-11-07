@@ -1,4 +1,6 @@
 import {ActionTypes, PostDataType, ProfilePageType, RootStateType,} from "./Store";
+import {Dispatch} from "react";
+import {usersAPI} from "../api/api";
 
 export type ProfilePropsType = {
     userId: number
@@ -78,5 +80,11 @@ export const setUserProfileAC=(profile:ProfilePropsType)=>{
         profile:profile
     } as const
 }
-
+export const getUserProfile=(userId:number)=> {
+    return (dispatch: Dispatch<ActionTypes>) => {
+        usersAPI.getProfile(userId).then(response => {
+            dispatch(setUserProfileAC(response.data));
+        })
+    }
+}
 

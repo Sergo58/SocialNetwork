@@ -12,6 +12,7 @@ import {
 
 } from "../../Redux/Store";
 import {changeNewMessageAC, sendMessageAC} from "../../Redux/DialogsReducer";
+import {Redirect} from "react-router";
 
 
 type DialogItemPropsType = {
@@ -27,6 +28,7 @@ type DialogsPropsType={
     state:DialogsPageType
     onSendMessageClick:(e:string)=>void
     addMessage:()=>void
+    isAuth:boolean
 
 }
 
@@ -50,7 +52,7 @@ let onSendMessageClick=function (e:ChangeEvent<HTMLTextAreaElement>) {
     props.onSendMessageClick(body)
 
     }
-
+if(!props.isAuth) return <Redirect to={"/login"}/>
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>

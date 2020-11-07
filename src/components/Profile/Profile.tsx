@@ -6,6 +6,7 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
 export type ProfileType = {
     profile: ProfilePropsType | null
+
 }
 
 

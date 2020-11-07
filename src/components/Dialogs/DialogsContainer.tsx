@@ -42,7 +42,9 @@ type DialogsContainerPropsType={
 
 
 let mapStateToProps=(state:StoreType)=>{
-    return{state: state.DialogsPage}
+    return{state: state.DialogsPage,
+    isAuth:state.auth.isAuth
+    }
 }
 let mapDispatchToProps=(dispatch:Dispatch<ActionTypes>)=>{
     return{
