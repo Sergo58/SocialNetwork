@@ -7,7 +7,7 @@ import {
     setCurrentPage,
 
     setTotalUsersCount,
-    setUsers, toggleIsFetching,
+    setUsers, toggleIsFetching, toggleIsFollowingProgress,
     unFollow
 } from "./users-reducer";
 
@@ -80,9 +80,14 @@ type setCurrentPageActionType=ReturnType<typeof setCurrentPage>
 type setTotalUsersCountActionType=ReturnType<typeof setTotalUsersCount>
 type setIsFetchingActionType=ReturnType<typeof toggleIsFetching>
 type setUserProfileActionType=ReturnType<typeof setUserProfileAC>
+type toggleIsFollowingProgressActionType=ReturnType<typeof toggleIsFollowingProgress>
+
+
 export  type ActionTypes=AddPostActionType|ChangeNewTextActionType
     |ChangeNewMessageActionType|SendMessageActionType|
-    FollowActionType|UnFollowActionType|setUsersActionType|setCurrentPageActionType|setTotalUsersCountActionType|setIsFetchingActionType|setUserProfileActionType
+    FollowActionType|UnFollowActionType|setUsersActionType|
+    setCurrentPageActionType|setTotalUsersCountActionType|setIsFetchingActionType|setUserProfileActionType|
+    toggleIsFollowingProgressActionType
 
 
 
