@@ -1,6 +1,6 @@
 import React, {ChangeEvent, Dispatch} from "react";
 import s from "./Dialogs.module.css"
-
+import {compose} from 'redux';
 import {DialogItem} from "./DialogItem/DialogsItem";
 import {Message} from "./Message/Message";
 import {
@@ -17,6 +17,7 @@ import {Dialogs} from "./Dialogs";
 import {store, StoreType} from "../../Redux/reduxStore";
 
 import {connect} from "react-redux";
+import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 
@@ -43,7 +44,7 @@ type DialogsContainerPropsType={
 
 let mapStateToProps=(state:StoreType)=>{
     return{state: state.DialogsPage,
-    isAuth:state.auth.isAuth
+
     }
 }
 let mapDispatchToProps=(dispatch:Dispatch<ActionTypes>)=>{
@@ -56,5 +57,8 @@ let mapDispatchToProps=(dispatch:Dispatch<ActionTypes>)=>{
         }
     }
 }
-export const DialogsContainer=connect(mapStateToProps,mapDispatchToProps)(Dialogs)
+export default compose<any>(
+    connect(mapStateToProps, mapDispatchToProps),
+    WithAuthRedirect
+)(Dialogs);
 

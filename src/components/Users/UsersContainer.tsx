@@ -2,6 +2,7 @@ import React, {Dispatch} from "react"
 import {connect} from "react-redux";
 import {StoreType} from "../../Redux/reduxStore";
 import {ActionTypes} from "../../Redux/Store";
+import {compose} from 'redux';
 import preloader from "../../ets/images/Infinity-1.7s-200px (2).svg"
 import {
     follow, getUsers,
@@ -15,6 +16,7 @@ import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {usersAPI} from "../../api/api";
+import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export type UsersPropsType = {
     users: Array<UsersType>
@@ -34,7 +36,7 @@ export type UsersPropsType = {
 }
 
 
-export class UsersContain extends React.Component<UsersPropsType> {
+export class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage,this.props.pageSize);
 
@@ -83,10 +85,7 @@ let mapStateToProps=(state:StoreType)=>{
 }
 
 
-export const UsersContainer=connect(mapStateToProps, {
-    follow,
-    unFollow,
-    setCurrentPage,
-    toggleIsFollowingProgress,
-    getUsers
-})(UsersContain)
+export default compose<any>(
+    WithAuthRedirect,
+    connect(mapStateToProps, {follow, unFollow, setCurrentPage,toggleIsFollowingProgress, getUsers})
+)(UsersContainer)
