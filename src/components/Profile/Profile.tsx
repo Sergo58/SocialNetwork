@@ -6,6 +6,9 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
 export type ProfileType = {
     profile: ProfilePropsType | null
+    status:string
+    updateUserStatus:(status:string)=>void
+
 
 }
 
@@ -13,7 +16,7 @@ export type ProfileType = {
 
 export function Profile (props:ProfileType)  {
     return     (
-        <div> <ProfileInfo profile={props.profile} />
+        <div> <ProfileInfo profile={props.profile} status={props.status}  updateUserStatus={props.updateUserStatus} />
             <MyPostsContainer />
 
             </div>)}

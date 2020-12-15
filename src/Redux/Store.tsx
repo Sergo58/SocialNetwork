@@ -1,5 +1,5 @@
 import {link} from "fs";
-import {addPostAC, changeNewTextAC, profileReducer, setUserProfileAC} from "./ProfileReducer";
+import {addPostAC, changeNewTextAC, profileReducer, setUserProfileAC, setUserStatusAC} from "./ProfileReducer";
 import {changeNewMessageAC, dialogsReducer, sendMessageAC} from "./DialogsReducer";
 import {sideBarReducer} from "./SideBarReducer";
 import {
@@ -81,13 +81,13 @@ type setTotalUsersCountActionType=ReturnType<typeof setTotalUsersCount>
 type setIsFetchingActionType=ReturnType<typeof toggleIsFetching>
 type setUserProfileActionType=ReturnType<typeof setUserProfileAC>
 type toggleIsFollowingProgressActionType=ReturnType<typeof toggleIsFollowingProgress>
-
+type setUserStatusActionType=ReturnType<typeof setUserStatusAC>
 
 export  type ActionTypes=AddPostActionType|ChangeNewTextActionType
     |ChangeNewMessageActionType|SendMessageActionType|
     FollowActionType|UnFollowActionType|setUsersActionType|
     setCurrentPageActionType|setTotalUsersCountActionType|setIsFetchingActionType|setUserProfileActionType|
-    toggleIsFollowingProgressActionType
+    toggleIsFollowingProgressActionType|setUserStatusActionType
 
 
 
