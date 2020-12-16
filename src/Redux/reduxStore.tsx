@@ -6,14 +6,15 @@ import {usersReducer} from "./users-reducer";
 import {authReducer} from "./authReducer";
 import {applyMiddleware} from  "redux";
 import thunkMiddleware from "redux-thunk"
-
+import {reducer as formReducer} from "redux-form"
 
 let reducers=combineReducers({
         ProfilePage:profileReducer,
         DialogsPage:dialogsReducer,
         SideBar:sideBarReducer,
          UserPage:usersReducer,
-    auth:authReducer
+    auth:authReducer,
+    form:formReducer
 }
     )
 type RootReducers=typeof reducers

@@ -1,5 +1,6 @@
 import React, {ChangeEvent} from "react";
 import s from "./ProfileInfo.module.css"
+import {setUserStatusAC} from "../../../Redux/ProfileReducer";
 
 
 export type ProfileStatusType = {
@@ -7,13 +8,17 @@ export type ProfileStatusType = {
     updateUserStatus:(status:string)=>void
 }
 
-
+type stateType={
+    editMode: boolean,
+    status:string
+}
 export class ProfileStatus extends React.Component<ProfileStatusType, any> {
 
-    state = {
+    state:stateType = {
         editMode: false,
         status:this.props.status
     }
+
 activateEditMode=()=>{
         this.setState({
             editMode:true
@@ -27,7 +32,15 @@ activateEditMode=()=>{
     }
     onStatusChange=(e:ChangeEvent<HTMLInputElement>)=>{
 this.setState({status:e.currentTarget.value})
+
     }
+    componentDidUpdate(prevProps:ProfileStatusType,prevState:stateType){
+if (prevProps.status!==this.props.status){
+    this.setState({status:this.props.status})
+}
+
+    }
+
     render() {
         return (
             <div>
