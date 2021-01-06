@@ -45,7 +45,7 @@ let initial = {
 
 
     ],
-    newMessageBody: ""
+
 
 }
 
@@ -54,20 +54,12 @@ export const dialogsReducer = (state: DialogsPageType = initial, action: ActionT
     let stateCopy
 
     switch (action.type) {
-        case "CHANGE NEW MESSAGEBODY":
-
-
-            return  stateCopy = {
-                ...state,
-                newMessageBody: action.newMessageBody
-            }
 
         case "SEND MESSAGE":
-            let body = state.newMessageBody
+            let body = action.newMessageBody
             return stateCopy = {
                 ...state,
-                newMessageBody: "",
-                messages: [...state.messages, {id: new Date().getTime(), message: body}]
+               messages: [...state.messages, {id: new Date().getTime(), message: body}]
 
             }
         default:
@@ -77,15 +69,11 @@ export const dialogsReducer = (state: DialogsPageType = initial, action: ActionT
 
 }
 
-export const changeNewMessageAC = (newMessageBody: string) => {
-    return {
-        type: "CHANGE NEW MESSAGEBODY",
-        newMessageBody: newMessageBody
-    } as const
-}
-export const sendMessageAC = () => {
+
+export const sendMessageAC = (newMessageBody:string) => {
     return {
         type: "SEND MESSAGE",
+        newMessageBody
 
     } as const
 }

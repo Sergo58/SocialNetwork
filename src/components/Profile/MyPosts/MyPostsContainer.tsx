@@ -1,7 +1,7 @@
 import React, {ChangeEvent, Dispatch} from "react";
 
 import {ActionTypes, PostDataType, ProfilePageType} from "../../../Redux/Store";
-import {addPostAC, changeNewTextAC} from "../../../Redux/ProfileReducer";
+import {addPostAC} from "../../../Redux/ProfileReducer";
 import {MyPosts} from "./MyPosts";
 import {store, StoreType} from "../../../Redux/reduxStore";
 
@@ -21,12 +21,9 @@ const mapStateToProps=(state:StoreType)=>{
 }
 const mapDispatchToProps=(dispatch:Dispatch<ActionTypes>)=>{
     return{
-        updateNewPostText:(message:string)=>{
-            let action=changeNewTextAC(message)
-            dispatch(action)
-        },
-        addPost:()=>{
-            dispatch(addPostAC())
+
+        addPost:(newPostText:string)=>{
+            dispatch(addPostAC(newPostText))
         }
     }
 }

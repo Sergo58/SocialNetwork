@@ -17,6 +17,6 @@ export type ProfileType = {
 export function Profile (props:ProfileType)  {
     return     (
         <div> <ProfileInfo profile={props.profile} status={props.status}  updateUserStatus={props.updateUserStatus} />
-            <MyPostsContainer />
+            <MyPostsContainer  />
 
             </div>)}

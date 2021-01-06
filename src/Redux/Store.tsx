@@ -1,6 +1,6 @@
 import {link} from "fs";
-import {addPostAC, changeNewTextAC, profileReducer, setUserProfileAC, setUserStatusAC} from "./ProfileReducer";
-import {changeNewMessageAC, dialogsReducer, sendMessageAC} from "./DialogsReducer";
+import {addPostAC,  profileReducer, setUserProfileAC, setUserStatusAC} from "./ProfileReducer";
+import { dialogsReducer, sendMessageAC} from "./DialogsReducer";
 import {sideBarReducer} from "./SideBarReducer";
 import {
     follow, followSuccess,
@@ -49,7 +49,7 @@ export type SideBarType={
 export type DialogsPageType={
     messages:Array<MessageDataType>
     dialogs:Array<DialogsDataType>
-    newMessageBody:string
+
 }
 export type NamesType={
     id:number
@@ -70,8 +70,8 @@ export type StoreType={
     dispatch:(action:ActionTypes)=>void
 }
 type AddPostActionType=ReturnType<typeof addPostAC>
-type ChangeNewTextActionType=ReturnType<typeof changeNewTextAC>
-type ChangeNewMessageActionType=ReturnType<typeof changeNewMessageAC>
+
+
 type SendMessageActionType=ReturnType<typeof sendMessageAC>
 type FollowActionType=ReturnType<typeof followSuccess>
 type UnFollowActionType=ReturnType<typeof unFollowSuccess>
@@ -83,8 +83,8 @@ type setUserProfileActionType=ReturnType<typeof setUserProfileAC>
 type toggleIsFollowingProgressActionType=ReturnType<typeof toggleIsFollowingProgress>
 type setUserStatusActionType=ReturnType<typeof setUserStatusAC>
 
-export  type ActionTypes=AddPostActionType|ChangeNewTextActionType
-    |ChangeNewMessageActionType|SendMessageActionType|
+export  type ActionTypes=AddPostActionType
+   |SendMessageActionType|
     FollowActionType|UnFollowActionType|setUsersActionType|
     setCurrentPageActionType|setTotalUsersCountActionType|setIsFetchingActionType|setUserProfileActionType|
     toggleIsFollowingProgressActionType|setUserStatusActionType

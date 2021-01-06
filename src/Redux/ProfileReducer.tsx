@@ -34,24 +34,18 @@ export const profileReducer=(state=initialState,action:ActionTypes):InitialState
        switch (action.type) {
            case "ADD-POST":{ const newPost:PostDataType={
                id:new Date().getTime(),
-               message:state.newPostText,
+               message:action.newPostText,
                likesCount:0
            };
                return {
                    ...state,
                    postData:[...state.postData,newPost],
-                   newPostText:""
-               }
 
                }
 
-           case "CHANGE NEW TEXT":{
-
-               return {
-                   ...state,
-                   newPostText:action.newText
                }
-           }
+
+
            case "SET USER PROFILE":
                return {...state,profile:action.profile}
            case "SET USER STATUS":
@@ -66,17 +60,13 @@ export const profileReducer=(state=initialState,action:ActionTypes):InitialState
 
     }
 
-export const addPostAC=()=>{
+export const addPostAC=(newPostText:string)=>{
     return {
-        type:"ADD-POST"
+        type:"ADD-POST",
+        newPostText
     } as const
 }
-export const changeNewTextAC=(newText:string)=>{
-    return {
-        type:"CHANGE NEW TEXT",
-        newText:newText
-    } as const
-}
+
 export const setUserProfileAC=(profile:ProfilePropsType)=>{
     return {
         type:"SET USER PROFILE",

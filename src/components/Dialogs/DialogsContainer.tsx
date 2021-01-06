@@ -11,7 +11,7 @@ import {
 
 } from "../../Redux/Store";
 
-import {changeNewMessageAC, sendMessageAC} from "../../Redux/DialogsReducer";
+import { sendMessageAC} from "../../Redux/DialogsReducer";
 import {Dialogs} from "./Dialogs";
 
 import {store, StoreType} from "../../Redux/reduxStore";
@@ -49,12 +49,10 @@ let mapStateToProps=(state:StoreType)=>{
 }
 let mapDispatchToProps=(dispatch:Dispatch<ActionTypes>)=>{
     return{
-        addMessage:()=>{
-            dispatch(sendMessageAC())
+        addMessage:(newMessageBody:string)=>{
+            dispatch(sendMessageAC(newMessageBody))
         },
-        onSendMessageClick:(message:string)=>{
-            dispatch(changeNewMessageAC(message))
-        }
+
     }
 }
 export default compose<any>(
