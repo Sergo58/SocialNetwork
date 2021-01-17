@@ -1,5 +1,6 @@
 import {Dispatch} from "react";
 import {authAPI} from "../api/api";
+import {isBoolean} from "util";
 
 export type authPageType= {
     userid: number|null,
@@ -26,8 +27,9 @@ export const authReducer=(state:authPageType=initial,action:ActionTypes)=>{
         case "SET-USER-DATA":
             return {
                 ...state,
-                ...action.data,
-                 isAuth:true
+                ...action.payload,
+
+
                 }
 
 
@@ -40,11 +42,11 @@ export const authReducer=(state:authPageType=initial,action:ActionTypes)=>{
 
 }
 
-export const setUserDataAC=(id: number, email: string, login: string)=>{
+export const setUserDataAC=(id: number|null, email: string|null, login: string|null, isAuth:boolean)=>{
     return {
         type:"SET-USER-DATA",
-        data: {
-            id, email, login
+        payload: {
+            id, email, login,isAuth
         }
     } as const
 }
@@ -54,10 +56,32 @@ return (dispatch: Dispatch<ActionTypes>)=>{
     authAPI.me().then(response => {
         if (response.data.resultCode===0){
             let {id, email, login} = response.data.data
-            dispatch(setUserDataAC(id, email, login));
+            dispatch(setUserDataAC(id, email, login,true));
         }
     })
 }
 }
+
+export const login=(email:string,password:string,rememberMe:boolean)=>{
+    return (dispatch: Dispatch<any>)=>{
+        authAPI.login(email, password, rememberMe).then(response => {
+            if (response.data.resultCode===0){
+                dispatch(getAuthUserData());
+            }
+        })
+    }
+}
+
+export const logOut=()=>{
+    return (dispatch: Dispatch<setUserDataActionType>)=>{
+        authAPI.loginOut().then(response => {
+            if (response.data.resultCode===0){
+                dispatch(setUserDataAC(null,null,null,false));
+            }
+        })
+    }
+}
+
+
   type ActionTypes=setUserDataActionType
 type setUserDataActionType=ReturnType<typeof setUserDataAC>
