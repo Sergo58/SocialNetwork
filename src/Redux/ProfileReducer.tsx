@@ -1,5 +1,5 @@
 import {ActionTypes, PostDataType, ProfilePageType, RootStateType,} from "./Store";
-import {Dispatch} from "react";
+import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 
 export type ProfilePropsType = {
@@ -80,11 +80,14 @@ export const setUserStatusAC=(status:string)=>{
     } as const
 }
 
-export const getUserProfile=(userId:number)=> {
-    return (dispatch: Dispatch<ActionTypes>) => {
-        usersAPI.getProfile(userId).then(response => {
-            dispatch(setUserProfileAC(response.data));
-        })
+export const getUserProfile = (userId: number) => {
+    return (dispatch: Dispatch) => {
+
+        usersAPI.getProfile(userId)
+            .then(response => {
+                debugger
+                dispatch(setUserProfileAC(response.data));
+            });
     }
 }
 

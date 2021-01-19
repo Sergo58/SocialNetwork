@@ -15,19 +15,13 @@ type MapStateType = {
 
 }
 type MapDispatchType = {
-    getAuthUserData:(id: number, email: string, login: string)=>void
+    getAuthUserData:()=>void
     logOut:()=>void
 }
 type PropsType = MapStateType & MapDispatchType
 class HeaderContainer extends React.Component<PropsType>   {
     componentDidMount() {
-
-        authAPI.me().then(response => {
-if (response.data.resultCode===0){
-    let {id, email, login} = response.data.data
-    this.props.getAuthUserData(id, email, login);
-}
-        })
+        this.props.getAuthUserData();
     }
 
     render() {
